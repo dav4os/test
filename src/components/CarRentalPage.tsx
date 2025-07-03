@@ -37,7 +37,7 @@ function CarRentalPage() {
     {
       id: 1,
       name: 'Dodge Challenger',
-      image: '/src/assets/image.png', // Используем правильный путь к изображению
+      image: 'https://images.pexels.com/photos/544542/pexels-photo-544542.jpeg?auto=compress&cs=tinysrgb&w=800',
       description: 'Одного взгляда на Dodge Challenger GT достаточно, чтобы понять его характер. Огромный, массивный, тяжёлый капот скрывает мощнейший двигатель – сердце этого маслкара. Стильный дизайн сочетает аэродинамичность и агрессивность – автомобиль уверенно бросает вызовы, зная, что выиграет любые из них.',
       specs: {
         year: '2022',
@@ -260,7 +260,7 @@ function CarRentalPage() {
       <section 
         className="relative h-screen bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), url("/src/assets/image copy.png")'
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), url("https://images.pexels.com/photos/544542/pexels-photo-544542.jpeg?auto=compress&cs=tinysrgb&w=1920")'
         }}
       >
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">

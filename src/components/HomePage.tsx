@@ -212,7 +212,7 @@ function HomePage() {
         <section 
           className="relative h-screen bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url("/src/assets/image.png")'
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url("https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1920")'
           }}
         >
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">
