@@ -1,18 +1,9 @@
-import { config } from '../config/env';
-
 // Google Analytics 4 setup
-export const GA_TRACKING_ID = config.analytics.gaTrackingId;
-
-// Проверяем, что gtag доступен
-declare global {
-  interface Window {
-    gtag: (...args: any[]) => void;
-  }
-}
+export const GA_TRACKING_ID = 'G-XXXXXXXXXX'; // Replace with your GA4 tracking ID
 
 // Log page views
 export const pageview = (url: string) => {
-  if (typeof window !== 'undefined' && window.gtag && GA_TRACKING_ID) {
+  if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('config', GA_TRACKING_ID, {
       page_path: url,
     });
@@ -26,7 +17,7 @@ export const event = ({ action, category, label, value }: {
   label?: string;
   value?: number;
 }) => {
-  if (typeof window !== 'undefined' && window.gtag && GA_TRACKING_ID) {
+  if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', action, {
       event_category: category,
       event_label: label,
@@ -68,31 +59,5 @@ export const trackEmailClick = () => {
     action: 'click',
     category: 'Contact',
     label: 'Email',
-  });
-};
-
-// Initialize analytics
-export const initAnalytics = () => {
-  if (!GA_TRACKING_ID) {
-    console.warn('Google Analytics tracking ID не настроен');
-    return;
-  }
-
-  // Загружаем Google Analytics скрипт
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
-  document.head.appendChild(script);
-
-  // Инициализируем gtag
-  window.gtag = window.gtag || function() {
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push(arguments);
-  };
-  
-  window.gtag('js', new Date());
-  window.gtag('config', GA_TRACKING_ID, {
-    page_title: document.title,
-    page_location: window.location.href,
   });
 };
