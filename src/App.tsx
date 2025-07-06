@@ -6,6 +6,8 @@ import BlogPage from './components/BlogPage';
 import BlogArticle from './components/BlogArticle';
 import AboutPage from './components/AboutPage';
 import CarRentalPage from './components/CarRentalPage';
+import PerformanceMonitor from './components/PerformanceMonitor';
+import SEOAnalyzer from './components/SEOAnalyzer';
 
 function App() {
   return (
@@ -18,6 +20,10 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/rental" element={<CarRentalPage />} />
         </Routes>
+        
+        {/* Development tools */}
+        <PerformanceMonitor />
+        <SEOAnalyzer />
       </div>
     </ErrorBoundary>
   );
