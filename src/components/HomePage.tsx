@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { MapPin, Car, Users, BookOpen, Calendar, Shield, Route, Plane, Compass, Star, Award, Heart, Menu, X } from 'lucide-react';
 import SEOHead from './SEOHead';
 import ContactSection from './ContactSection';
+import ReliableImage from './ReliableImage';
+import useImagePreloader from '../hooks/useImagePreloader';
 
 function HomePage() {
   const [activeNav, setActiveNav] = useState('tours');
@@ -86,6 +88,14 @@ function HomePage() {
       description: 'мы подберем тур, который идеально подойдет именно вам, будь то семейный отдых или экстремальное приключение.'
     }
   ];
+
+  // Предзагрузка критических изображений
+  const criticalImages = [
+    'https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    ...offers.map(offer => offer.image)
+  ];
+  
+  useImagePreloader(criticalImages, { priority: 'high' });
 
   return (
     <>
@@ -209,12 +219,18 @@ function HomePage() {
         </header>
 
         {/* Hero Section */}
-        <section 
-          className="relative h-screen bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url("https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1920")'
-          }}
-        >
+        <section className="relative h-screen">
+          <ReliableImage
+            src="https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt="Дубай - Бурдж Халифа и фонтаны"
+            className="absolute inset-0 w-full h-full object-cover"
+            width={1920}
+            height={1080}
+            lazy={false}
+            fallbackSrc="https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=800"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30"></div>
+          
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
               Выбери свою<br />
@@ -288,11 +304,13 @@ function HomePage() {
                 className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
               >
                 <div className="relative overflow-hidden">
-                  <img
+                  <ReliableImage
                     src={offer.image}
                     alt={offer.alt}
                     className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
+                    width={400}
+                    height={256}
+                    fallbackSrc={offer.image.replace('w=400', 'w=200')}
                   />
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-sm font-semibold text-amber-600">
                     {offer.duration}
@@ -335,11 +353,12 @@ function HomePage() {
                 </p>
               </div>
               <div className="relative">
-                <img
+                <ReliableImage
                   src="https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt="Пляж в Дубае с кристально чистой водой"
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
-                  loading="lazy"
+                  width={800}
+                  height={320}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
               </div>
@@ -351,11 +370,12 @@ function HomePage() {
               </h3>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className="relative order-2 lg:order-1">
-                  <img
+                  <ReliableImage
                     src="https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=800"
                     alt="Небоскребы Дубая с Бурдж Халифа"
                     className="rounded-2xl shadow-2xl w-full h-80 object-cover"
-                    loading="lazy"
+                    width={800}
+                    height={320}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
                 </div>
