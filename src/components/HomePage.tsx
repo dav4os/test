@@ -139,8 +139,8 @@ function HomePage() {
                 <div className="hidden md:flex items-center gap-6 text-white/80">
                   <div className="text-right">
                     <p className="text-sm">Свяжитесь с нами</p>
-                    <a href="tel:+971501234567" className="font-semibold text-amber-300 hover:text-amber-200 transition-colors">
-                      +971 50 123 4567
+                    <a href="tel:+79166508005" className="font-semibold text-amber-300 hover:text-amber-200 transition-colors">
+                      +7 916 650 80 05
                     </a>
                   </div>
                 </div>
@@ -190,10 +190,10 @@ function HomePage() {
                   <div className="mt-4 pt-4 border-t border-white/20">
                     <p className="text-white/60 text-sm mb-2">Контакты:</p>
                     <a 
-                      href="tel:+971501234567" 
+                      href="tel:+79166508005" 
                       className="block text-amber-300 font-semibold hover:text-amber-200 transition-colors py-1"
                     >
-                      +971 50 123 4567
+                      +7 916 650 80 05
                     </a>
                     <a 
                       href="mailto:info@exploreit.ae" 
@@ -453,7 +453,7 @@ function HomePage() {
               <Link to="/rental" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">
                 Аренда авто
               </Link>
-              <a href="tel:+971501234567" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">
+              <a href="tel:+79166508005" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">
                 Контакты
               </a>
             </nav>

@@ -134,7 +134,7 @@ function ContactForm() {
                 value={formData.phone}
                 onChange={handleChange}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                placeholder="+971 50 123 4567"
+                placeholder="+7 916 650 80 05"
               />
             </div>
           </div>

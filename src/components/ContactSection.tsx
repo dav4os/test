@@ -7,8 +7,8 @@ function ContactSection() {
     {
       icon: Phone,
       title: 'Телефон',
-      value: '+971 50 123 4567',
-      href: 'tel:+971501234567',
+      value: '+7 916 650 80 05',
+      href: 'tel:+79166508005',
       description: 'Звоните в любое время'
     },
     {
@@ -87,14 +87,14 @@ function ContactSection() {
               <h3 className="text-xl font-bold text-gray-800 mb-4">Быстрые действия</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="tel:+971501234567"
+                  href="tel:+79166508005"
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
                 >
                   <Phone size={18} />
                   Позвонить сейчас
                 </a>
                 <a
-                  href="https://wa.me/971501234567"
+                  href="https://wa.me/79166508005"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-400 to-green-500 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"

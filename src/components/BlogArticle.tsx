@@ -445,11 +445,11 @@ function BlogArticle() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:+971501234567"
+                href="tel:+79166508005"
                 className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
               >
                 <MessageCircle size={20} />
-                +971 50 123 4567
+                +7 916 650 80 05
               </a>
               <a
                 href="mailto:info@exploreit.ae"
