@@ -271,7 +271,7 @@ function AboutPage() {
             </div>
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/3894157/pexels-photo-3894157.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src="https://images.pexels.com/photos/3894157/pexels-photo-3894157.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp"
                 alt="Desert Safari"
                 className="rounded-2xl shadow-2xl w-full h-96 object-cover"
               />

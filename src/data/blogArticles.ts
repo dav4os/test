@@ -241,7 +241,7 @@ export const blogArticles: BlogArticle[] = [
 Пустынное сафари - это must-have опыт для каждого, кто посещает ОАЭ. Правильная подготовка и выбор надежного оператора гарантируют незабываемые впечатления и безопасность.
 
 **Готовы к приключению?** Забронируйте пустынное сафари с Explore IT и получите максимум впечатлений от этого уникального опыта!`,
-    image: "https://images.pexels.com/photos/3894157/pexels-photo-3894157.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.pexels.com/photos/3894157/pexels-photo-3894157.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp",
     author: "Мария Соколова",
     date: "12 декабря 2024",
     readTime: "10 мин",
@@ -413,7 +413,7 @@ export const blogArticles: BlogArticle[] = [
 Абу-Даби предлагает уникальное путешествие через время - от древних традиций бедуинов до футуристической архитектуры XXI века. Этот город обязательно должен быть в списке каждого путешественника, желающего понять душу Объединенных Арабских Эмиратов.
 
 **Планируете поездку в Абу-Даби?** Доверьте организацию тура профессионалам Explore IT, и мы покажем вам все грани этого удивительного города!`,
-    image: "https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp",
     author: "Дмитрий Волков",
     date: "10 декабря 2024",
     readTime: "12 мин",
@@ -618,7 +618,7 @@ export const blogArticles: BlogArticle[] = [
 Гастрономическая сцена Дубая предлагает невероятное разнообразие вкусов и впечатлений. От традиционных арабских блюд до авторской кухни мировых шеф-поваров - каждый найдет что-то по душе. Не упустите возможность попробовать местные деликатесы и открыть для себя новые вкусы.
 
 **Хотите гастрономический тур по Дубаю?** Explore IT организует индивидуальные кулинарные путешествия с посещением лучших ресторанов города!`,
-    image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp",
     author: "Елена Морозова",
     date: "8 декабря 2024",
     readTime: "9 мин",
@@ -860,7 +860,7 @@ export const blogArticles: BlogArticle[] = [
 Шоппинг в ОАЭ - это уникальный опыт, сочетающий традиции и современность. От торга на древних рынках до покупок в роскошных бутиках - каждый найдет что-то по душе и кошельку. Главное - планировать время и бюджет, чтобы получить максимум удовольствия от покупок.
 
 **Планируете шоппинг-тур в ОАЭ?** Explore IT организует индивидуальные программы с посещением лучших торговых мест и получением эксклюзивных скидок!`,
-    image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp",
     author: "Анна Петрова",
     date: "5 декабря 2024",
     readTime: "11 мин",
@@ -1099,7 +1099,7 @@ export const blogArticles: BlogArticle[] = [
 Водные развлечения в ОАЭ предлагают невероятное разнообразие активностей для всех возрастов и уровней подготовки. От спокойного отдыха на пляже до экстремального дайвинга - каждый найдет занятие по душе. Главное - соблюдать меры безопасности и наслаждаться кристально чистыми водами Персидского залива.
 
 **Хотите организовать водное приключение в ОАЭ?** Explore IT поможет выбрать лучшие активности и обеспечит безопасный и незабываемый отдых на воде!`,
-    image: "https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp",
     author: "Михаил Волков",
     date: "3 декабря 2024",
     readTime: "13 мин",
