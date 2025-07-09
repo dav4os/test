@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, Clock, Tag, Eye, Heart, Share2, Compass, Menu, X } from 'lucide-react';
 import { blogArticles } from '../data/blogArticles';
-import ReliableImage from './ReliableImage';
+import OptimizedImage from './OptimizedImage';
 
 function BlogPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -167,13 +167,13 @@ function BlogPage() {
                 className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
               >
                 <div className="relative overflow-hidden">
-                  <ReliableImage
+                  <OptimizedImage
                     src={post.image}
                     alt={post.title}
                     className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                     width={400}
                     height={256}
-                    fallbackSrc={post.image.replace('w=800', 'w=400')}
+                    quality={85}
                   />
                   <div className="absolute top-4 left-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                     {post.category}

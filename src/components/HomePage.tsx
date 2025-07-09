@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Car, Users, BookOpen, Calendar, Shield, Route, Plane, Compass, Star, Award, Heart, Menu, X } from 'lucide-react';
 import SEOHead from './SEOHead';
 import ContactSection from './ContactSection';
-import ReliableImage from './ReliableImage';
+import OptimizedImage from './OptimizedImage';
 import useImagePreloader from '../hooks/useImagePreloader';
 
 function HomePage() {
@@ -220,14 +220,14 @@ function HomePage() {
 
         {/* Hero Section */}
         <section className="relative h-screen">
-          <ReliableImage
+          <OptimizedImage
             src="https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1920"
             alt="Дубай - Бурдж Халифа и фонтаны"
             className="absolute inset-0 w-full h-full object-cover"
             width={1920}
             height={1080}
             lazy={false}
-            fallbackSrc="https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=800"
+            quality={95}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30"></div>
           
@@ -304,13 +304,13 @@ function HomePage() {
                 className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
               >
                 <div className="relative overflow-hidden">
-                  <ReliableImage
+                  <OptimizedImage
                     src={offer.image}
                     alt={offer.alt}
                     className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                     width={400}
                     height={256}
-                    fallbackSrc={offer.image.replace('w=400', 'w=200')}
+                    quality={90}
                   />
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-sm font-semibold text-amber-600">
                     {offer.duration}
@@ -353,12 +353,13 @@ function HomePage() {
                 </p>
               </div>
               <div className="relative">
-                <ReliableImage
+                <OptimizedImage
                   src="https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt="Пляж в Дубае с кристально чистой водой"
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   width={800}
                   height={320}
+                  quality={85}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
               </div>
@@ -370,12 +371,13 @@ function HomePage() {
               </h3>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className="relative order-2 lg:order-1">
-                  <ReliableImage
+                  <OptimizedImage
                     src="https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=800"
                     alt="Небоскребы Дубая с Бурдж Халифа"
                     className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                     width={800}
                     height={320}
+                    quality={85}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
                 </div>
