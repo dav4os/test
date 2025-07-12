@@ -7,6 +7,7 @@ import BlogPage from './components/BlogPage';
 import BlogArticle from './components/BlogArticle';
 import AboutPage from './components/AboutPage';
 import CarRentalPage from './components/CarRentalPage';
+import TestSEO from './components/TestSEO';
 import PerformanceMonitor from './components/PerformanceMonitor';
 import SEOAnalyzer from './components/SEOAnalyzer';
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="/blog/:slug" element={<BlogArticle />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/rental" element={<CarRentalPage />} />
+            <Route path="/test-seo" element={<TestSEO />} />
           </Routes>
           
           {/* Development tools */}
