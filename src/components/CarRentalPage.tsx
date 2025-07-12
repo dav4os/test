@@ -37,7 +37,7 @@ function CarRentalPage() {
     {
       id: 1,
       name: 'Dodge Challenger',
-      image: 'https://images.pexels.com/photos/544542/pexels-photo-544542.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/pexels-04iraq-1272398525-29098431.jpg',
       description: 'Одного взгляда на Dodge Challenger GT достаточно, чтобы понять его характер. Огромный, массивный, тяжёлый капот скрывает мощнейший двигатель – сердце этого маслкара. Стильный дизайн сочетает аэродинамичность и агрессивность – автомобиль уверенно бросает вызовы, зная, что выиграет любые из них.',
       specs: {
         year: '2022',
@@ -59,7 +59,7 @@ function CarRentalPage() {
     {
       id: 2,
       name: 'Ford Mustang Cabriolet',
-      image: 'https://images.pexels.com/photos/544542/pexels-photo-544542.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/pexels-avinashpatel-544542.jpg',
       description: 'Ford Mustang — культовое авто с внушительной историей и безупречной репутацией. С момента своего появления он был обречён на успех, а эволюция, пройденная им за полвека, отражает самые прогрессивные достижения конструкторской мысли.',
       specs: {
         year: '2021',
@@ -81,7 +81,7 @@ function CarRentalPage() {
     {
       id: 3,
       name: 'Nissan Patrol Titanium',
-      image: 'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/transportnoe-sredstvo-v-dvizenii.jpg',
       description: 'Предлагаем в аренду брутальный Nissan Patrol! Patrol поражает своей величественностью. Харизматичный и брутальный, рамный монстр.',
       specs: {
         year: '2021',
@@ -103,7 +103,7 @@ function CarRentalPage() {
     {
       id: 4,
       name: 'Mercedes Benz C300',
-      image: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/pexels-egeardaphotos-2148533277-30313376.jpg',
       description: 'Mercedes-Benz C-Класс может похвастаться первоклассным оснащением. Его электронные системы работают согласно концепции Intelligent Drive, ее суть в том, чтобы максимально снять с водителя нагрузку.',
       specs: {
         year: '2021',
@@ -260,7 +260,7 @@ function CarRentalPage() {
       <section 
         className="relative h-screen bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), url("https://images.pexels.com/photos/544542/pexels-photo-544542.jpeg?auto=compress&cs=tinysrgb&w=1920&fm=webp")'
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), url("/photo_2025-07-12_18-52-35.jpg")'
         }}
       >
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">

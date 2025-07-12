@@ -5,6 +5,10 @@ import SEOHead from './SEOHead';
 import ContactSection from './ContactSection';
 import ReliableImage from './ReliableImage';
 import useImagePreloader from '../hooks/useImagePreloader';
+import bgImage from '../assets/pexels-pixabay-162031.jpg';
+import dubaiPremiumImg from '../assets/pexels-apasaric-2044434.jpg';
+import safariImg from '../assets/pexels-bubi-2867769.jpg';
+import abuDhabiImg from '../assets/pexels-lina-12238221.jpg';
 
 function HomePage() {
   const [activeNav, setActiveNav] = useState('tours');
@@ -30,7 +34,7 @@ function HomePage() {
     {
       id: 1,
       title: 'Дубай Премиум',
-      image: 'https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: dubaiPremiumImg,
       price: '2,500 AED',
       duration: '3 дня',
       alt: 'Экскурсия Дубай Премиум - Бурдж Халифа'
@@ -38,7 +42,7 @@ function HomePage() {
     {
       id: 2,
       title: 'Пустынное сафари',
-      image: 'https://images.pexels.com/photos/3894157/pexels-photo-3894157.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: safariImg,
       price: '450 AED',
       duration: '1 день',
       alt: 'Пустынное сафари в ОАЭ'
@@ -46,7 +50,7 @@ function HomePage() {
     {
       id: 3,
       title: 'Абу-Даби Тур',
-      image: 'https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: abuDhabiImg,
       price: '800 AED',
       duration: '2 дня',
       alt: 'Экскурсия в Абу-Даби'
@@ -95,7 +99,7 @@ function HomePage() {
     ...offers.map(offer => offer.image)
   ];
   
-  useImagePreloader(criticalImages, { priority: 'high' });
+  // useImagePreloader(criticalImages, { priority: 'high' });
 
   return (
     <>
@@ -222,7 +226,7 @@ function HomePage() {
         <section 
           className="relative h-screen bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url("https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1920&fm=webp")'
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(${bgImage})`
           }}
         >
           
@@ -299,13 +303,12 @@ function HomePage() {
                 className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
               >
                 <div className="relative overflow-hidden">
-                  <ReliableImage
-                    src={`${offer.image}&fm=webp`}
+                  <img
+                    src={offer.image}
                     alt={offer.alt}
                     className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                     width={400}
                     height={256}
-                    fallbackSrc={offer.image.replace('w=400', 'w=200')}
                   />
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-sm font-semibold text-amber-600">
                     {offer.duration}
@@ -348,9 +351,9 @@ function HomePage() {
                 </p>
               </div>
               <div className="relative">
-                <ReliableImage
-                  src="https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp"
-                  alt="Пляж в Дубае с кристально чистой водой"
+                <img
+                  src="/pexels-apasaric-2044434.jpg"
+                  alt="Незабываемые экскурсии в Дубае"
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   width={800}
                   height={320}
@@ -365,9 +368,9 @@ function HomePage() {
               </h3>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className="relative order-2 lg:order-1">
-                  <ReliableImage
-                    src="https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp"
-                    alt="Небоскребы Дубая с Бурдж Халифа"
+                  <img
+                    src="/pexels-pixabay-162031.jpg"
+                    alt="Почему стоит посетить Дубай"
                     className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                     width={800}
                     height={320}

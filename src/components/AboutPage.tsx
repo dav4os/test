@@ -217,14 +217,22 @@ function AboutPage() {
 
       {/* Hero Section */}
       <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+        <div
+          className="relative max-w-7xl mx-auto text-center flex flex-col items-center justify-center py-20 mb-8 rounded-2xl overflow-hidden"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.25)), url("/pexels-lina-12238221.jpg")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
             О нас
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-white mb-8 max-w-3xl mx-auto drop-shadow">
             Мы - команда профессионалов, влюбленных в Объединенные Арабские Эмираты и готовых поделиться этой любовью с вами
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-orange-500 mx-auto rounded-full"></div>
+          <div className="absolute inset-0 pointer-events-none rounded-2xl"></div>
         </div>
       </section>
 
@@ -271,8 +279,8 @@ function AboutPage() {
             </div>
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/3894157/pexels-photo-3894157.jpeg?auto=compress&cs=tinysrgb&w=800&fm=webp"
-                alt="Desert Safari"
+                src="/photo_2025-07-12_19-02-57.jpg"
+                alt="Наша история"
                 className="rounded-2xl shadow-2xl w-full h-96 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
@@ -338,44 +346,6 @@ function AboutPage() {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Team */}
-      <section className="py-20 px-4 bg-gradient-to-r from-amber-100 to-orange-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Наша команда
-            </h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Профессионалы, которые сделают ваше путешествие незабываемым
-            </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-orange-500 mx-auto rounded-full"></div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{member.name}</h3>
-                  <p className="text-amber-600 font-semibold mb-3">{member.position}</p>
-                  <p className="text-gray-600">{member.description}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
