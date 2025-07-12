@@ -38,6 +38,9 @@ function SEOHead({
       
       {/* Canonical */}
       <link rel="canonical" href={url} />
+      
+      {/* Yandex Webmaster Verification */}
+      <meta name="yandex-verification" content="3bfd53dec64e6d62" />
     </Helmet>
   );
 }

@@ -21,6 +21,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import SEOHead from './SEOHead';
 
 function AboutPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -116,7 +117,15 @@ function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+    <>
+      <SEOHead 
+        title="О нас - Explore IT | Туристическое агентство в Дубае"
+        description="Узнайте больше о команде Explore IT - опытных гидах и экспертах по туризму в ОАЭ. 7 лет опыта, 5000+ довольных клиентов, авторские маршруты."
+        keywords="о нас explore it, команда гидов дубай, туристическое агентство оаэ, опытные гиды дубай, авторские маршруты оаэ"
+        url="https://exploreit.ae/about"
+        type="website"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -453,6 +462,7 @@ function AboutPage() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
 

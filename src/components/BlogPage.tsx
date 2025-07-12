@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, Clock, Tag, Eye, Heart, Share2, Compass, Menu, X } from 'lucide-react';
 import { blogArticles } from '../data/blogArticles';
 import ReliableImage from './ReliableImage';
+import SEOHead from './SEOHead';
 
 function BlogPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -24,7 +25,15 @@ function BlogPage() {
     : blogArticles.filter(post => post.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+    <>
+      <SEOHead 
+        title="Блог о Путешествиях - Explore IT | Гиды и Советы по ОАЭ"
+        description="Читайте наши подробные гиды по ОАЭ, советы экспертов и вдохновляющие истории путешествий. Откройте секреты Дубая, Абу-Даби и других эмиратов."
+        keywords="блог оаэ, гиды дубай, советы путешественникам оаэ, достопримечательности дубай, путешествия оаэ, туристические советы"
+        url="https://exploreit.ae/blog"
+        type="website"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -278,6 +287,7 @@ function BlogPage() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
 

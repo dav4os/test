@@ -19,6 +19,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import SEOHead from './SEOHead';
 
 function CarRentalPage() {
   const [selectedPeriod, setSelectedPeriod] = useState('day');
@@ -157,7 +158,15 @@ function CarRentalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+    <>
+      <SEOHead 
+        title="Аренда Авто в Дубае - Explore IT | Премиальные автомобили"
+        description="Аренда премиальных автомобилей в Дубае: Dodge Challenger, Ford Mustang, Nissan Patrol, Mercedes Benz. Полная страховка, доставка, 24/7 поддержка."
+        keywords="аренда авто дубай, аренда автомобилей оаэ, dodge challenger дубай, ford mustang аренда, nissan patrol дубай, mercedes benz аренда"
+        url="https://exploreit.ae/rental"
+        type="website"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -521,6 +530,7 @@ function CarRentalPage() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
 

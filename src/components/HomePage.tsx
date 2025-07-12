@@ -103,7 +103,13 @@ function HomePage() {
 
   return (
     <>
-      <SEOHead />
+      <SEOHead 
+        title="Explore IT - Туры и Аренда Авто в Дубае | Экскурсии по ОАЭ"
+        description="Explore IT - ведущее туристическое агентство в Дубае. Экскурсии по ОАЭ, аренда премиальных автомобилей, пустынное сафари. Более 5000 довольных клиентов."
+        keywords="туры дубай, экскурсии оаэ, аренда авто дубай, пустынное сафари, туристическое агентство дубай, бурдж халифа, пальма джумейра"
+        url="https://exploreit.ae/"
+        type="website"
+      />
       <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
         {/* Header with Navigation */}
         <header className="absolute top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm">
