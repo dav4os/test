@@ -41,6 +41,14 @@ function SEOHead({
       
       {/* Yandex Webmaster Verification */}
       <meta name="yandex-verification" content="3bfd53dec64e6d62" />
+      
+      {/* Google Search Console Verification */}
+      <meta name="google-site-verification" content="your-google-verification-code" />
+      
+      {/* Force refresh meta tags */}
+      <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+      <meta httpEquiv="Pragma" content="no-cache" />
+      <meta httpEquiv="Expires" content="0" />
     </Helmet>
   );
 }
