@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://exploreit.ae/sitemap.xml
+Sitemap: https://exploreitdubai.ru/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1
