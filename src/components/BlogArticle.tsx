@@ -19,7 +19,6 @@ import {
   Tag
 } from 'lucide-react';
 import { getBlogArticleBySlug, getRelatedArticles } from '../data/blogArticles';
-import SEOHead from './SEOHead';
 
 function BlogArticle() {
   const { slug } = useParams<{ slug: string }>();
@@ -147,14 +146,6 @@ function BlogArticle() {
 
   return (
     <>
-      <SEOHead 
-        title={article.seo.metaTitle}
-        description={article.seo.metaDescription}
-        keywords={article.seo.keywords}
-        url={shareUrl}
-        type="article"
-      />
-      
       <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
         {/* Header */}
         <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
@@ -245,6 +236,9 @@ function BlogArticle() {
             )}
           </div>
         </header>
+        <div className="max-w-7xl mx-auto px-4">
+          
+        </div>
 
         {/* Article Hero */}
         <section className="py-12 px-4">

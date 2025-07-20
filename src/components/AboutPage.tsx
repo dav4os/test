@@ -21,7 +21,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import SEOHead from './SEOHead';
+import { Helmet } from 'react-helmet-async';
 
 function AboutPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -118,13 +118,18 @@ function AboutPage() {
 
   return (
     <>
-      <SEOHead 
-        title="О нас - Explore IT | Туристическое агентство в Дубае"
-        description="Узнайте больше о команде Explore IT - опытных гидах и экспертах по туризму в ОАЭ. 7 лет опыта, 5000+ довольных клиентов, авторские маршруты."
-        keywords="о нас explore it, команда гидов дубай, туристическое агентство оаэ, опытные гиды дубай, авторские маршруты оаэ"
-        url="https://exploreit.ae/about"
-        type="website"
-      />
+      <Helmet>
+        <title>О нас — Explore IT Dubai</title>
+        <meta name="description" content="Мы — команда профессионалов, влюбленных в ОАЭ и готовых делиться этой любовью с вами." />
+        <meta name="keywords" content="О нас, команда, Дубай, Эмираты, туризм, гиды Дубай, опытные гиды, профессиональная команда, туроператор Дубай, отзывы клиентов, история компании, миссия компании, ценности компании, лучшие гиды Дубай, экскурсии с гидом, экскурсии на русском, экскурсии по ОАЭ, экскурсии по Дубаю, экскурсии по эмиратам, экскурсии по Персидскому заливу, экскурсии по ОАЭ на русском, экскурсии по Дубаю на русском, экскурсии по эмиратам на русском, экскурсии по Персидскому заливу на русском, экскурсии по ОАЭ на английском, экскурсии по Дубаю на английском, экскурсии по эмиратам на английском, экскурсии по Персидскому заливу на английском, отзывы о гидах, отзывы о турах, отзывы о компании, отзывы о сервисе, отзывы о путешествиях, отзывы о поездках, отзывы о турах в Дубай, отзывы о турах в ОАЭ, отзывы о турах в эмираты, отзывы о турах в Персидский залив, отзывы о турах на русском, отзывы о турах на английском, отзывы о турах для детей, отзывы о турах для взрослых, отзывы о турах для всей семьи, отзывы о турах для бизнеса, отзывы о турах для отдыха, отзывы о турах для путешествий, отзывы о турах для экскурсий, отзывы о турах для трансфера, отзывы о турах для свадьбы, отзывы о турах для мероприятий, отзывы о турах для фотосессии, отзывы о турах для съемок, отзывы о турах для деловых поездок, отзывы о турах для корпоративов, отзывы о турах для вечеринок, отзывы о турах для праздников" />
+        <link rel="canonical" href="https://exploreitdubai.ru/about" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://exploreitdubai.ru/about" />
+        <meta property="og:title" content="О нас — Explore IT Dubai" />
+        <meta property="og:description" content="Мы — команда профессионалов, влюбленных в ОАЭ и готовых делиться этой любовью с вами." />
+        <meta property="og:image" content="https://exploreitdubai.ru/og-image.jpg" />
+        <meta property="og:locale" content="ru_RU" />
+      </Helmet>
       <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
@@ -223,6 +228,9 @@ function AboutPage() {
           )}
         </div>
       </header>
+      <div className="max-w-7xl mx-auto px-4">
+        
+      </div>
 
       {/* Hero Section */}
       <section className="py-20 px-4">

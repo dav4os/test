@@ -1,16 +1,10 @@
 import React from 'react';
-import SEOHead from './SEOHead';
+// import SEOHead from './SEOHead';
 
 function TestSEO() {
   return (
     <>
-      <SEOHead 
-        title="🔥 ТЕСТ SEO МЕТА-ТЕГОВ - Explore IT | Проверка Динамических Тегов"
-        description="🔥 Это специальная тестовая страница для проверки работы динамических SEO мета-тегов. Проверьте заголовок браузера и мета-теги в исходном коде."
-        keywords="🔥 тест seo, динамические мета теги, проверка helmet, explore it тест"
-        url="https://exploreitdubai.ru/test-seo"
-        type="website"
-      />
+      {/* SEOHead удалён */}
       <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-50 flex items-center justify-center">
         <div className="text-center max-w-2xl mx-auto p-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">

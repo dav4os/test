@@ -11,8 +11,10 @@ import TestSEO from './components/TestSEO';
 import PerformanceMonitor from './components/PerformanceMonitor';
 import SEOAnalyzer from './components/SEOAnalyzer';
 import NotFoundPage from './components/NotFoundPage';
+import { useScrollToHash } from './hooks/useScrollToHash';
 
 function App() {
+  useScrollToHash(80);
   return (
     <ErrorBoundary>
       <div className="min-h-screen">

@@ -14,16 +14,9 @@ function ContactSection() {
     {
       icon: Mail,
       title: 'Email',
-      value: 'info@exploreit.ae',
-      href: 'mailto:info@exploreit.ae',
+      value: 'info@exploreitdubai.ru',
+      href: 'mailto:info@exploreitdubai.ru',
       description: 'Ответим в течение часа'
-    },
-    {
-      icon: MapPin,
-      title: 'Офис',
-      value: 'Dubai, UAE',
-      href: '#',
-      description: 'Встретимся лично'
     },
     {
       icon: Clock,
@@ -101,6 +94,15 @@ function ContactSection() {
                 >
                   <MessageCircle size={18} />
                   WhatsApp
+                </a>
+                <a
+                  href="https://t.me/astrophysicss"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  <MessageCircle size={18} />
+                  Чат в Telegram
                 </a>
               </div>
             </div>
