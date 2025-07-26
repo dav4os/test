@@ -121,7 +121,7 @@ function AboutPage() {
       <Helmet>
         <title>О нас — Explore IT Dubai</title>
         <meta name="description" content="Мы — команда профессионалов, влюбленных в ОАЭ и готовых делиться этой любовью с вами." />
-        <meta name="keywords" content="О нас, команда, Дубай, Эмираты, туризм, гиды Дубай, опытные гиды, профессиональная команда, туроператор Дубай, отзывы клиентов, история компании, миссия компании, ценности компании, лучшие гиды Дубай, экскурсии с гидом, экскурсии на русском, экскурсии по ОАЭ, экскурсии по Дубаю, экскурсии по эмиратам, экскурсии по Персидскому заливу, экскурсии по ОАЭ на русском, экскурсии по Дубаю на русском, экскурсии по эмиратам на русском, экскурсии по Персидскому заливу на русском, экскурсии по ОАЭ на английском, экскурсии по Дубаю на английском, экскурсии по эмиратам на английском, экскурсии по Персидскому заливу на английском, отзывы о гидах, отзывы о турах, отзывы о компании, отзывы о сервисе, отзывы о путешествиях, отзывы о поездках, отзывы о турах в Дубай, отзывы о турах в ОАЭ, отзывы о турах в эмираты, отзывы о турах в Персидский залив, отзывы о турах на русском, отзывы о турах на английском, отзывы о турах для детей, отзывы о турах для взрослых, отзывы о турах для всей семьи, отзывы о турах для бизнеса, отзывы о турах для отдыха, отзывы о турах для путешествий, отзывы о турах для экскурсий, отзывы о турах для трансфера, отзывы о турах для свадьбы, отзывы о турах для мероприятий, отзывы о турах для фотосессии, отзывы о турах для съемок, отзывы о турах для деловых поездок, отзывы о турах для корпоративов, отзывы о турах для вечеринок, отзывы о турах для праздников" />
+        <meta name="keywords" content="О нас, команда, Дубай, Эмираты, туризм, гиды, опытные гиды, профессиональная команда, туроператор, отзывы клиентов, история компании, миссия компании, ценности компании, лучшие гиды, экскурсии с гидом, экскурсии на русском, экскурсии по ОАЭ, экскурсии по Дубаю, экскурсии по эмиратам, экскурсии по Персидскому заливу" />
         <link rel="canonical" href="https://exploreitdubai.ru/about" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://exploreitdubai.ru/about" />
@@ -237,7 +237,7 @@ function AboutPage() {
         <div
           className="relative max-w-7xl mx-auto text-center flex flex-col items-center justify-center py-20 mb-8 rounded-2xl overflow-hidden"
           style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.25)), url("/pexels-lina-12238221.jpg")',
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.25)), url("/pexels-lina-12238221.webp")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -296,7 +296,7 @@ function AboutPage() {
             </div>
             <div className="relative">
               <img
-                src="/photo_2025-07-12_19-02-57.jpg"
+                src="/photo_2025-07-12_19-02-57.webp"
                 alt="Наша история"
                 className="rounded-2xl shadow-2xl w-full h-96 object-cover"
               />
@@ -435,7 +435,7 @@ function AboutPage() {
             </button>
             <button className="flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-amber-500 text-amber-600 font-bold rounded-lg hover:bg-amber-50 transition-all duration-300 transform hover:scale-105">
               <Mail size={20} />
-              info@exploreit.ae
+                              info@exploreitdubai.ru
             </button>
           </div>
         </div>

@@ -1,35 +1,50 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx';
 import './index.css';
-import { reportWebVitals, setupPerformanceObserver, analyzeBundleSize } from './utils/performance';
+import { reportWebVitals, setupPerformanceObserver, analyzeBundleSize, checkPerformanceBudget } from './utils/performance';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+// Initialize app
+const initApp = () => {
+  const root = createRoot(document.getElementById('root')!);
+  
+  root.render(
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true
+        }}
+      >
         <App />
       </BrowserRouter>
     </HelmetProvider>
-  </StrictMode>
-);
+  );
+  
+  // Performance monitoring
+  reportWebVitals((metric) => {
+    console.log(metric);
+  });
+  
+  setupPerformanceObserver();
+};
 
-// Performance monitoring
-reportWebVitals((metric) => {
-  console.log(metric);
-  // Here you would send metrics to your analytics service
-});
+// Start app with performance optimizations
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initApp();
+  });
+} else {
+  initApp();
+}
 
-// Setup performance observers
-setupPerformanceObserver();
-
-// Analyze bundle size in development
-if (process.env.NODE_ENV === 'development') {
+// Analyze bundle size and performance in development
+if (import.meta.env.DEV) {
   window.addEventListener('load', () => {
     setTimeout(() => {
       analyzeBundleSize();
+      checkPerformanceBudget();
     }, 2000);
   });
 }

@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getOptimalImagePath } from '../utils/imageUtils';
 
-interface ReliableImageProps {
+interface OptimizedImageProps {
   src: string;
   alt: string;
   className?: string;
   fallbackSrc?: string;
-  loading?: 'lazy' | 'eager';
   priority?: boolean;
+  loading?: 'lazy' | 'eager';
   onLoad?: () => void;
   onError?: () => void;
 }
 
-const ReliableImage: React.FC<ReliableImageProps> = ({
+const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
   alt,
   className = '',
   fallbackSrc,
-  loading = 'lazy',
   priority = false,
+  loading = 'lazy',
   onLoad,
   onError
 }) => {
@@ -28,7 +28,6 @@ const ReliableImage: React.FC<ReliableImageProps> = ({
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    // Get optimal image path (WebP if available)
     const optimalSrc = getOptimalImagePath(src);
     setCurrentSrc(optimalSrc);
     setHasError(false);
@@ -42,12 +41,12 @@ const ReliableImage: React.FC<ReliableImageProps> = ({
 
   const handleError = () => {
     if (!hasError && currentSrc.endsWith('.webp')) {
-      // Try original format if WebP fails
+      // Fallback to JPG if WebP fails
       const originalSrc = currentSrc.replace('.webp', '.jpg');
       setCurrentSrc(originalSrc);
       setHasError(true);
     } else if (fallbackSrc && currentSrc !== fallbackSrc) {
-      // Try fallback if provided
+      // Use provided fallback
       setCurrentSrc(fallbackSrc);
       setHasError(true);
     } else {
@@ -75,4 +74,4 @@ const ReliableImage: React.FC<ReliableImageProps> = ({
   );
 };
 
-export default ReliableImage;
+export default OptimizedImage; 

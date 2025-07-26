@@ -1,0 +1,47 @@
+{
+  "name": "Explore IT Dubai - Экскурсии и аренда авто",
+  "short_name": "Explore IT",
+  "description": "Ведущее туристическое агентство в Дубае, предлагающее экскурсии по ОАЭ и аренду премиальных автомобилей",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f59e0b",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ru",
+  "categories": ["travel", "business", "lifestyle"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Экскурсии",
+      "short_name": "Экскурсии",
+      "description": "Посмотреть экскурсии по Дубаю",
+      "url": "/#tours"
+    },
+    {
+      "name": "Аренда авто",
+      "short_name": "Аренда",
+      "description": "Аренда автомобилей в Дубае",
+      "url": "/rental"
+    },
+    {
+      "name": "Блог",
+      "short_name": "Блог",
+      "description": "Полезные статьи о Дубае",
+      "url": "/blog"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://exploreitdubai.ru"
+    }
+  ],
+  "prefer_related_applications": false
+} 

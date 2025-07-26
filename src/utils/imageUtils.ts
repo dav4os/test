@@ -158,3 +158,64 @@ export const getAdaptiveQuality = (): number => {
       return 75; // Среднее качество по умолчанию
   }
 };
+
+/**
+ * Конвертирует путь к изображению в WebP формат, если WebP версия доступна
+ * @param imagePath - путь к изображению
+ * @returns путь к WebP версии или оригинальный путь
+ */
+export const getWebPImagePath = (imagePath: string): string => {
+  // Если путь уже в формате WebP, возвращаем как есть
+  if (imagePath.endsWith('.webp')) {
+    return imagePath;
+  }
+
+  // Если путь в формате JPG/JPEG, конвертируем в WebP
+  if (imagePath.endsWith('.jpg') || imagePath.endsWith('.jpeg')) {
+    return imagePath.replace(/\.(jpg|jpeg)$/i, '.webp');
+  }
+
+  // Для других форматов возвращаем оригинальный путь
+  return imagePath;
+};
+
+/**
+ * Список изображений, для которых доступны WebP версии
+ */
+export const WEBP_AVAILABLE_IMAGES = [
+  '/pexels-04iraq-1272398525-29098431.webp',
+  '/pexels-apasaric-2044434.webp',
+  '/pexels-avinashpatel-544542.webp',
+  '/pexels-bubi-2867769.webp',
+  '/pexels-lina-12238221.webp',
+  '/pexels-egeardaphotos-2148533277-30313376.webp',
+  '/pexels-pixabay-162031.webp',
+  '/photo_2025-07-12_18-52-35.webp',
+  '/photo_2025-07-12_19-02-57.webp',
+  '/photo_2025-07-12_19-16-09.webp',
+  '/photo_2025-07-12_19-16-06.webp',
+  '/photo_2025-07-12_19-16-14.webp',
+  '/transportnoe-sredstvo-v-dvizenii.webp'
+];
+
+/**
+ * Проверяет, доступна ли WebP версия для данного изображения
+ * @param imagePath - путь к изображению
+ * @returns true, если WebP версия доступна
+ */
+export const isWebPAvailable = (imagePath: string): boolean => {
+  const webpPath = getWebPImagePath(imagePath);
+  return WEBP_AVAILABLE_IMAGES.includes(webpPath);
+};
+
+/**
+ * Возвращает оптимальный путь к изображению (WebP если доступен, иначе оригинальный)
+ * @param imagePath - путь к изображению
+ * @returns оптимальный путь к изображению
+ */
+export const getOptimalImagePath = (imagePath: string): string => {
+  if (isWebPAvailable(imagePath)) {
+    return getWebPImagePath(imagePath);
+  }
+  return imagePath;
+};

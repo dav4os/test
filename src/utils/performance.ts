@@ -112,7 +112,30 @@ export const setupPerformanceObserver = () => {
     // Monitor Long Tasks (> 50ms)
     const longTaskObserver = new PerformanceObserver((list) => {
       list.getEntries().forEach((entry) => {
-        console.warn('⚠️ Long Task detected:', `${entry.duration}ms`, entry);
+        if (entry.duration > 50) {
+          console.warn('⚠️ Long Task detected:', `${entry.duration}ms`, entry);
+          
+          // Analyze long task attribution
+          const longTaskEntry = entry as any;
+          if (longTaskEntry.attribution && longTaskEntry.attribution.length > 0) {
+            const attribution = longTaskEntry.attribution[0];
+            console.warn('🔍 Long Task Attribution:', {
+              name: attribution.name,
+              entryType: attribution.entryType,
+              startTime: attribution.startTime,
+              duration: attribution.duration
+            });
+          }
+          
+          // Suggest optimizations for long tasks
+          if (entry.duration > 100) {
+            console.warn('💡 Consider: Code splitting, lazy loading, or moving heavy operations to Web Workers');
+          }
+          
+          if (entry.duration > 200) {
+            console.warn('🚨 Critical: This long task significantly impacts user experience');
+          }
+        }
       });
     });
     
@@ -136,6 +159,22 @@ export const setupPerformanceObserver = () => {
     } catch (e) {
       console.log('Layout Shift API not supported');
     }
+
+    // Monitor First Input Delay
+    const fidObserver = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        const fidEntry = entry as any;
+        if (fidEntry.processingStart && fidEntry.startTime && fidEntry.processingStart - fidEntry.startTime > 100) {
+          console.warn('⚠️ Slow First Input:', `${fidEntry.processingStart - fidEntry.startTime}ms`);
+        }
+      });
+    });
+
+    try {
+      fidObserver.observe({ entryTypes: ['first-input'] });
+    } catch (e) {
+      console.log('First Input API not supported');
+    }
   }
 };
 
@@ -150,4 +189,62 @@ export const measureComponentRender = (componentName: string) => {
       console.log(`🔧 ${componentName} render time:`, `${measure.duration.toFixed(2)}ms`);
     }
   };
+};
+
+// Debounce function for performance optimization
+export const debounce = <T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): ((...args: Parameters<T>) => void) => {
+  let timeout: number;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+};
+
+// Throttle function for performance optimization
+export const throttle = <T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): ((...args: Parameters<T>) => void) => {
+  let inThrottle: boolean;
+  return (...args: Parameters<T>) => {
+    if (!inThrottle) {
+      func(...args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+};
+
+// Performance budget checker
+export const checkPerformanceBudget = () => {
+  const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+  const loadTime = navigation.loadEventEnd - navigation.fetchStart;
+  
+  const budget = {
+    loadTime: 2000, // 2 seconds
+    jsSize: 500 * 1024, // 500KB
+    cssSize: 100 * 1024, // 100KB
+    imageCount: 10
+  };
+  
+  const resources = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
+  const jsSize = resources
+    .filter(r => r.name.includes('.js'))
+    .reduce((sum, r) => sum + (r.transferSize || 0), 0);
+  
+  const cssSize = resources
+    .filter(r => r.name.includes('.css'))
+    .reduce((sum, r) => sum + (r.transferSize || 0), 0);
+  
+  const imageCount = resources.filter(r => r.name.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i)).length;
+  
+  console.group('💰 Performance Budget Check');
+  console.log(`📊 Load Time: ${loadTime}ms / ${budget.loadTime}ms (${loadTime <= budget.loadTime ? '✅' : '❌'})`);
+  console.log(`📦 JS Size: ${Math.round(jsSize / 1024)}KB / ${Math.round(budget.jsSize / 1024)}KB (${jsSize <= budget.jsSize ? '✅' : '❌'})`);
+  console.log(`🎨 CSS Size: ${Math.round(cssSize / 1024)}KB / ${Math.round(budget.cssSize / 1024)}KB (${cssSize <= budget.cssSize ? '✅' : '❌'})`);
+  console.log(`🖼️ Image Count: ${imageCount} / ${budget.imageCount} (${imageCount <= budget.imageCount ? '✅' : '❌'})`);
+  console.groupEnd();
 };

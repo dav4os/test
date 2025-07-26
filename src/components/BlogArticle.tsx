@@ -18,7 +18,8 @@ import {
   BookOpen,
   Tag
 } from 'lucide-react';
-import { getBlogArticleBySlug, getRelatedArticles } from '../data/blogArticles';
+import { getBlogArticleBySlug, getRelatedArticles, getOptimizedBlogArticle } from '../data/blogArticles';
+import StructuredData from './StructuredData';
 
 function BlogArticle() {
   const { slug } = useParams<{ slug: string }>();
@@ -34,7 +35,8 @@ function BlogArticle() {
     return <Navigate to="/blog" replace />;
   }
 
-  const relatedArticles = getRelatedArticles(slug, article.category);
+  const optimizedArticle = getOptimizedBlogArticle(article);
+  const relatedArticles = getRelatedArticles(slug, article.category).map(getOptimizedBlogArticle);
 
   const navigationLinks = [
     { label: 'Главная', href: '/' },
@@ -53,7 +55,7 @@ function BlogArticle() {
   const shareUrl = `${window.location.origin}/blog/${slug}`;
   
   const handleShare = (platform: string) => {
-    const text = `${article.title} - ${article.excerpt}`;
+    const text = `${optimizedArticle.title} - ${optimizedArticle.excerpt}`;
     let url = '';
     
     switch (platform) {
@@ -146,6 +148,17 @@ function BlogArticle() {
 
   return (
     <>
+      <StructuredData
+        type="Article"
+        data={{
+          title: optimizedArticle.title,
+          description: optimizedArticle.excerpt,
+          image: optimizedArticle.image,
+          author: optimizedArticle.author,
+          publishedTime: optimizedArticle.date,
+          url: shareUrl
+        }}
+      />
       <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
         {/* Header */}
         <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
@@ -249,36 +262,36 @@ function BlogArticle() {
               <span>/</span>
               <Link to="/blog" className="hover:text-amber-600 transition-colors">Блог</Link>
               <span>/</span>
-              <span className="text-amber-600">{article.title}</span>
+              <span className="text-amber-600">{optimizedArticle.title}</span>
             </nav>
 
             {/* Article Header */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
               <div className="relative">
                 <img
-                  src={article.image}
-                  alt={article.title}
+                                  src={optimizedArticle.image}
+                alt={optimizedArticle.title}
                   className="w-full h-96 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="flex items-center gap-2 mb-4">
                     <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {article.category}
+                      {optimizedArticle.category}
                     </span>
                     <div className="flex items-center gap-4 text-white/90 text-sm">
                       <div className="flex items-center gap-1">
                         <Eye size={14} />
-                        <span>{article.views}</span>
+                        <span>{optimizedArticle.views}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Heart size={14} />
-                        <span>{article.likes}</span>
+                        <span>{optimizedArticle.likes}</span>
                       </div>
                     </div>
                   </div>
                   <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                    {article.title}
+                    {optimizedArticle.title}
                   </h1>
                 </div>
               </div>
@@ -288,15 +301,15 @@ function BlogArticle() {
                   <div className="flex items-center gap-6 text-gray-600">
                     <div className="flex items-center gap-2">
                       <User size={16} />
-                      <span>{article.author}</span>
+                                              <span>{optimizedArticle.author}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Calendar size={16} />
-                      <span>{article.date}</span>
+                                              <span>{optimizedArticle.date}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock size={16} />
-                      <span>{article.readTime}</span>
+                                              <span>{optimizedArticle.readTime}</span>
                     </div>
                   </div>
                   
@@ -335,7 +348,7 @@ function BlogArticle() {
                 </div>
                 
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  {article.excerpt}
+                  {optimizedArticle.excerpt}
                 </p>
               </div>
             </div>
@@ -347,7 +360,7 @@ function BlogArticle() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <div className="prose prose-lg max-w-none">
-                {formatContent(article.content)}
+                {formatContent(optimizedArticle.content)}
               </div>
               
               {/* Tags */}
@@ -357,7 +370,7 @@ function BlogArticle() {
                   <span className="font-semibold text-gray-800">Теги:</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {article.tags.map((tag, index) => (
+                  {optimizedArticle.tags.map((tag, index) => (
                     <span
                       key={index}
                       className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium hover:bg-amber-200 transition-colors cursor-pointer"
@@ -446,10 +459,10 @@ function BlogArticle() {
                 +7 916 650 80 05
               </a>
               <a
-                href="mailto:info@exploreit.ae"
+                href="mailto:info@exploreitdubai.ru"
                 className="flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-amber-500 text-amber-600 font-bold rounded-lg hover:bg-amber-50 transition-all duration-300 transform hover:scale-105"
               >
-                info@exploreit.ae
+                info@exploreitdubai.ru
               </a>
             </div>
           </div>

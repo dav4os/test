@@ -1,217 +1,185 @@
-// SEO optimization utilities
+// SEO utilities
 
 export interface SEOData {
-  title: string;
-  description: string;
-  keywords: string;
+  title?: string;
+  description?: string;
+  keywords?: string;
   image?: string;
   url?: string;
   type?: string;
   author?: string;
   publishedTime?: string;
   modifiedTime?: string;
+  section?: string;
+  tags?: string[];
 }
 
-// Generate structured data for different content types
+export const generateMetaTags = (seoData: SEOData) => {
+  const defaultTitle = 'Explore IT Dubai - Экскурсии и аренда авто в Дубае';
+  const defaultDescription = 'Ведущее туристическое агентство в Дубае. Экскурсии по ОАЭ, аренда премиальных автомобилей, индивидуальные туры.';
+  const defaultUrl = 'https://exploreitdubai.ru';
+  const defaultImage = 'https://exploreitdubai.ru/pexels-pixabay-162031.webp';
+
+  return [
+    // Primary Meta Tags
+    { name: 'title', content: seoData.title || defaultTitle },
+    { name: 'description', content: seoData.description || defaultDescription },
+    { name: 'keywords', content: seoData.keywords || 'экскурсии дубай, аренда авто дубай, туры оаэ, туристическое агентство дубай' },
+    { name: 'author', content: seoData.author || 'Explore IT Dubai' },
+    
+    // Open Graph Meta Tags
+    { property: 'og:title', content: seoData.title || defaultTitle },
+    { property: 'og:description', content: seoData.description || defaultDescription },
+    { property: 'og:type', content: seoData.type || 'website' },
+    { property: 'og:url', content: seoData.url || defaultUrl },
+    { property: 'og:image', content: seoData.image || defaultImage },
+    { property: 'og:image:width', content: '1200' },
+    { property: 'og:image:height', content: '630' },
+    { property: 'og:site_name', content: 'Explore IT Dubai' },
+    { property: 'og:locale', content: 'ru_RU' },
+    
+    // Twitter Meta Tags
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: seoData.title || defaultTitle },
+    { name: 'twitter:description', content: seoData.description || defaultDescription },
+    { name: 'twitter:image', content: seoData.image || defaultImage },
+    { name: 'twitter:site', content: '@exploreitdubai' },
+    { name: 'twitter:creator', content: '@exploreitdubai' },
+    
+    // Additional Meta Tags
+    { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+    { name: 'googlebot', content: 'index, follow' },
+    { rel: 'canonical', href: seoData.url || defaultUrl }
+  ];
+};
+
 export const generateStructuredData = (type: string, data: any) => {
-  const baseStructure = {
-    "@context": "https://schema.org",
-    "@type": type
+  const baseData = {
+    '@context': 'https://schema.org',
+    '@type': type,
+    'url': data.url || 'https://exploreitdubai.ru',
+    'name': data.name || 'Explore IT Dubai',
+    'description': data.description || 'Ведущее туристическое агентство в Дубае'
   };
 
   switch (type) {
     case 'TravelAgency':
       return {
-        ...baseStructure,
-        name: data.name,
-        description: data.description,
-        url: data.url,
-        telephone: data.telephone,
-        email: data.email,
-        address: data.address,
-        sameAs: data.sameAs,
-        aggregateRating: data.aggregateRating,
-        priceRange: data.priceRange
-      };
-
-    case 'Article':
-      return {
-        ...baseStructure,
-        headline: data.title,
-        description: data.description,
-        image: data.image,
-        author: {
-          "@type": "Person",
-          name: data.author
+        ...baseData,
+        'telephone': '+79166508005',
+        'email': 'info@exploreitdubai.ru',
+        'address': {
+          '@type': 'PostalAddress',
+          'addressCountry': 'AE',
+          'addressLocality': 'Dubai',
+          'addressRegion': 'Dubai',
+          'streetAddress': 'Dubai Marina'
         },
-        publisher: {
-          "@type": "Organization",
-          name: "Explore IT",
-          logo: {
-            "@type": "ImageObject",
-            url: "https://exploreit.ae/logo.png"
-          }
+        'geo': {
+          '@type': 'GeoCoordinates',
+          'latitude': 25.2048,
+          'longitude': 55.2708
         },
-        datePublished: data.publishedTime,
-        dateModified: data.modifiedTime || data.publishedTime,
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": data.url
+        'aggregateRating': {
+          '@type': 'AggregateRating',
+          'ratingValue': '4.9',
+          'reviewCount': '5000',
+          'bestRating': '5',
+          'worstRating': '1'
+        },
+        'priceRange': '$$',
+        'openingHoursSpecification': {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          'opens': '09:00',
+          'closes': '18:00'
         }
       };
-
-    case 'TouristTrip':
+      
+    case 'Article':
       return {
-        ...baseStructure,
-        name: data.name,
-        description: data.description,
-        image: data.image,
-        offers: {
-          "@type": "Offer",
-          price: data.price,
-          priceCurrency: "AED",
-          availability: "https://schema.org/InStock"
+        ...baseData,
+        'headline': data.title,
+        'author': {
+          '@type': 'Person',
+          'name': data.author || 'Explore IT Dubai'
         },
-        provider: {
-          "@type": "TravelAgency",
-          name: "Explore IT"
+        'publisher': {
+          '@type': 'Organization',
+          'name': 'Explore IT Dubai',
+          'logo': {
+            '@type': 'ImageObject',
+            'url': 'https://exploreitdubai.ru/logo.png'
+          }
         },
-        touristType: data.touristType,
-        itinerary: data.itinerary
+        'datePublished': data.publishedTime,
+        'dateModified': data.modifiedTime || data.publishedTime,
+        'image': data.image,
+        'mainEntityOfPage': {
+          '@type': 'WebPage',
+          '@id': data.url
+        }
       };
-
+      
     default:
-      return baseStructure;
+      return baseData;
   }
 };
 
-// Generate meta tags for different pages
-export const generateMetaTags = (seoData: SEOData) => {
+export const generateBreadcrumbData = (items: Array<{name: string, url: string}>) => {
   return {
-    title: seoData.title,
-    meta: [
-      { name: 'description', content: seoData.description },
-      { name: 'keywords', content: seoData.keywords },
-      { name: 'author', content: seoData.author || 'Explore IT' },
-      
-      // Open Graph
-      { property: 'og:title', content: seoData.title },
-      { property: 'og:description', content: seoData.description },
-      { property: 'og:image', content: seoData.image || 'https://exploreit.ae/og-image.jpg' },
-      { property: 'og:url', content: seoData.url || 'https://exploreit.ae' },
-      { property: 'og:type', content: seoData.type || 'website' },
-      { property: 'og:site_name', content: 'Explore IT' },
-      { property: 'og:locale', content: 'ru_RU' },
-      
-      // Twitter
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: seoData.title },
-      { name: 'twitter:description', content: seoData.description },
-      { name: 'twitter:image', content: seoData.image || 'https://exploreit.ae/og-image.jpg' },
-      
-      // Additional SEO
-      { name: 'robots', content: 'index, follow' },
-      { name: 'googlebot', content: 'index, follow' },
-      { name: 'theme-color', content: '#f59e0b' }
-    ],
-    link: [
-      { rel: 'canonical', href: seoData.url || 'https://exploreit.ae' }
-    ]
-  };
-};
-
-// Generate breadcrumb structured data
-export const generateBreadcrumbData = (breadcrumbs: Array<{name: string, url: string}>) => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": breadcrumbs.map((crumb, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": crumb.name,
-      "item": crumb.url
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': items.map((item, index) => ({
+      '@type': 'ListItem',
+      'position': index + 1,
+      'name': item.name,
+      'item': `https://exploreitdubai.ru${item.url}`
     }))
   };
 };
 
-// SEO score calculator
-export const calculateSEOScore = (pageData: {
-  title?: string;
-  description?: string;
-  keywords?: string;
-  headings?: string[];
-  images?: Array<{alt?: string}>;
-  links?: Array<{text?: string}>;
-  content?: string;
-}) => {
+export const calculateSEOScore = (seoData: SEOData) => {
   let score = 0;
-  const issues: string[] = [];
-
-  // Title check (25 points)
-  if (pageData.title) {
-    if (pageData.title.length >= 30 && pageData.title.length <= 60) {
-      score += 25;
-    } else {
-      score += 10;
-      issues.push(`Title length should be 30-60 characters (current: ${pageData.title.length})`);
-    }
-  } else {
-    issues.push('Missing page title');
+  const maxScore = 100;
+  
+  // Title (20 points)
+  if (seoData.title) {
+    const titleLength = seoData.title.length;
+    if (titleLength >= 30 && titleLength <= 60) score += 20;
+    else if (titleLength > 0) score += 10;
   }
-
-  // Description check (25 points)
-  if (pageData.description) {
-    if (pageData.description.length >= 120 && pageData.description.length <= 160) {
-      score += 25;
-    } else {
-      score += 10;
-      issues.push(`Description length should be 120-160 characters (current: ${pageData.description.length})`);
-    }
-  } else {
-    issues.push('Missing meta description');
+  
+  // Description (20 points)
+  if (seoData.description) {
+    const descLength = seoData.description.length;
+    if (descLength >= 120 && descLength <= 160) score += 20;
+    else if (descLength > 0) score += 10;
   }
-
-  // Keywords check (10 points)
-  if (pageData.keywords && pageData.keywords.length > 0) {
-    score += 10;
-  } else {
-    issues.push('Missing keywords');
-  }
-
-  // Headings check (15 points)
-  if (pageData.headings && pageData.headings.length > 0) {
-    score += 15;
-  } else {
-    issues.push('Missing headings structure');
-  }
-
-  // Images alt text check (15 points)
-  if (pageData.images) {
-    const imagesWithAlt = pageData.images.filter(img => img.alt && img.alt.length > 0);
-    const altTextRatio = imagesWithAlt.length / pageData.images.length;
-    score += Math.round(15 * altTextRatio);
-    
-    if (altTextRatio < 1) {
-      issues.push(`${pageData.images.length - imagesWithAlt.length} images missing alt text`);
-    }
-  }
-
-  // Content length check (10 points)
-  if (pageData.content) {
-    if (pageData.content.length >= 300) {
-      score += 10;
-    } else {
-      score += 5;
-      issues.push('Content is too short (should be at least 300 characters)');
-    }
-  } else {
-    issues.push('Missing content');
-  }
-
+  
+  // Keywords (10 points)
+  if (seoData.keywords) score += 10;
+  
+  // Image (10 points)
+  if (seoData.image) score += 10;
+  
+  // URL (10 points)
+  if (seoData.url) score += 10;
+  
+  // Type (10 points)
+  if (seoData.type) score += 10;
+  
+  // Author (10 points)
+  if (seoData.author) score += 10;
+  
+  // Published time (10 points)
+  if (seoData.publishedTime) score += 10;
+  
   return {
-    score: Math.min(score, 100),
-    issues,
-    rating: score >= 80 ? 'excellent' : score >= 60 ? 'good' : score >= 40 ? 'fair' : 'poor'
+    score,
+    maxScore,
+    percentage: Math.round((score / maxScore) * 100),
+    grade: score >= 90 ? 'A' : score >= 80 ? 'B' : score >= 70 ? 'C' : score >= 60 ? 'D' : 'F'
   };
 };
 

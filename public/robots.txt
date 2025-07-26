@@ -1,8 +1,41 @@
 User-agent: *
 Allow: /
 
+# Блокировать служебные страницы
+Disallow: /admin/
+Disallow: /api/
+Disallow: /test-seo/
+Disallow: /performance-monitor/
+Disallow: /seo-analyzer/
+
+# Блокировать временные файлы
+Disallow: /*.tmp$
+Disallow: /*.log$
+Disallow: /*.bak$
+
+# Разрешить важные файлы
+Allow: /sitemap.xml
+Allow: /robots.txt
+Allow: /manifest.json
+
 # Sitemap
 Sitemap: https://exploreitdubai.ru/sitemap.xml
 
-# Crawl-delay
+# Crawl-delay для уважительного краулинга
+Crawl-delay: 1
+
+# Дополнительные директивы для поисковых систем
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+# Bing
+User-agent: Bingbot
+Allow: /
 Crawl-delay: 1

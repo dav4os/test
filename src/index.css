@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Performance optimizations */
+.layout-stable {
+  contain: layout style paint;
+}
+
+.prevent-shift {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Prevent layout shifts for images */
+img {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* Skeleton loader */
+.skeleton-loader {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Font optimization */
+* {
+  font-display: swap;
+}
+
+/* Prevent layout shifts during font loading */
+.font-loading-placeholder {
+  visibility: hidden;
+}
+
+.fonts-loaded .font-loading-placeholder {
+  visibility: visible;
+}

@@ -1,67 +1,109 @@
 import { useState, useEffect } from 'react';
 
-interface PreloadOptions {
-  priority?: 'high' | 'low';
-  timeout?: number;
+interface UseImagePreloaderOptions {
+  priority?: 'high' | 'medium' | 'low';
+  onLoad?: () => void;
+  onError?: () => void;
 }
 
-function useImagePreloader(urls: string[], options: PreloadOptions = {}) {
+export const useImagePreloader = (
+  imageUrls: string[],
+  options: UseImagePreloaderOptions = {}
+) => {
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
-  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { priority = 'low', timeout = 10000 } = options;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (urls.length === 0) return;
+    if (!imageUrls.length) {
+      setLoading(false);
+      return;
+    }
 
-    setIsLoading(true);
-    const promises = urls.map(url => preloadImage(url, timeout));
+    let mounted = true;
+    const newLoadedImages = new Set<string>();
+    let loadedCount = 0;
+    const totalImages = imageUrls.length;
 
-    Promise.allSettled(promises).then(results => {
-      const loaded = new Set<string>();
-      const failed = new Set<string>();
+    const loadImage = (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
+      return new Promise<void>((resolve, reject) => {
+        const img = new Image();
+        
+        img.onload = () => {
+          if (mounted) {
+            newLoadedImages.add(url);
+            loadedCount++;
+            setLoadedImages(new Set(newLoadedImages));
+            
+            if (loadedCount === totalImages) {
+              setLoading(false);
+              options.onLoad?.();
+            }
+          }
+          resolve();
+        };
+        
+        img.onerror = () => {
+          if (mounted) {
+            setError(`Failed to load image: ${url}`);
+            options.onError?.();
+          }
+          reject(new Error(`Failed to load image: ${url}`));
+        };
 
-      results.forEach((result, index) => {
-        if (result.status === 'fulfilled') {
-          loaded.add(urls[index]);
-        } else {
-          failed.add(urls[index]);
-          console.warn(`Failed to preload image: ${urls[index]}`);
+        // Set priority based on importance
+        if (priority === 'high') {
+          img.fetchPriority = 'high';
         }
+        
+        img.src = url;
       });
-
-      setLoadedImages(loaded);
-      setFailedImages(failed);
-      setIsLoading(false);
-    });
-  }, [urls, timeout]);
-
-  return { loadedImages, failedImages, isLoading };
-}
-
-function preloadImage(url: string, timeout: number): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    
-    const timeoutId = setTimeout(() => {
-      img.onload = null;
-      img.onerror = null;
-      reject(new Error(`Image load timeout: ${url}`));
-    }, timeout);
-
-    img.onload = () => {
-      clearTimeout(timeoutId);
-      resolve(url);
     };
 
-    img.onerror = () => {
-      clearTimeout(timeoutId);
-      reject(new Error(`Failed to load image: ${url}`));
+    // Load images with priority
+    const loadImagesWithPriority = async () => {
+      try {
+        // Load high priority images first
+        const highPriorityImages = imageUrls.slice(0, 3);
+        const mediumPriorityImages = imageUrls.slice(3, 10);
+        const lowPriorityImages = imageUrls.slice(10);
+
+        // Load high priority images immediately
+        await Promise.all(highPriorityImages.map(url => loadImage(url, 'high')));
+        
+        // Load medium priority images with small delay
+        if (mediumPriorityImages.length > 0) {
+          setTimeout(() => {
+            mediumPriorityImages.forEach(url => loadImage(url, 'medium'));
+          }, 100);
+        }
+        
+        // Load low priority images with larger delay
+        if (lowPriorityImages.length > 0) {
+          setTimeout(() => {
+            lowPriorityImages.forEach(url => loadImage(url, 'low'));
+          }, 500);
+        }
+      } catch (err) {
+        if (mounted) {
+          setError(err instanceof Error ? err.message : 'Unknown error');
+        }
+      }
     };
 
-    img.src = url;
-  });
-}
+    loadImagesWithPriority();
+
+    return () => {
+      mounted = false;
+    };
+  }, [imageUrls, options.onLoad, options.onError]);
+
+  return {
+    loadedImages,
+    loading,
+    error,
+    progress: loadedImages.size / imageUrls.length
+  };
+};
 
 export default useImagePreloader;
