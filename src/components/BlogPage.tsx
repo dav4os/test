@@ -1,16 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContactModal } from '../hooks/useContactModal';
+import ContactModal from './ContactModal';
 import { ArrowLeft, Calendar, User, Clock, Tag, Eye, Heart, Share2, Compass, Menu, X } from 'lucide-react';
 import { blogArticles, getOptimizedBlogArticles } from '../data/blogArticles';
 import ReliableImage from './ReliableImage';
 import { Helmet } from 'react-helmet-async';
 
 function BlogPage() {
+  const { isModalOpen, openModal, closeModal } = useContactModal();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   const navigationLinks = [
     { label: 'Главная', href: '/' },
-    { label: 'Экскурсии', href: '/#tours' },
+    { label: 'Экскурсии', href: '/tours' },
     { label: 'Аренда авто', href: '/rental' },
     { label: 'О нас', href: '/about' },
     { label: 'Блог', href: '/blog', active: true },
@@ -294,8 +297,11 @@ function BlogPage() {
             </button>
           </div>
         </div>
-      </footer>
-    </div>
+              </footer>
+      </div>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 }

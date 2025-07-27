@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { submitLeadWithJSONP, validateLeadData, formatLeadData, LeadData } from '../utils/googleSheets';
+import { leadsService } from '../services/leadsService';
+
+interface LeadData {
+  name: string;
+  phone: string;
+  email: string;
+  type: string;
+  message: string;
+}
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState<LeadData>({
@@ -24,10 +32,22 @@ const ContactForm: React.FC = () => {
   };
 
   const validateForm = (): boolean => {
-    const validation = validateLeadData(formData);
+    const errors: string[] = [];
     
-    if (!validation.isValid) {
-      setSubmitMessage(validation.errors.join(', '));
+    if (!formData.name.trim()) {
+      errors.push('Имя обязательно для заполнения');
+    }
+    
+    if (!formData.phone.trim()) {
+      errors.push('Телефон обязателен для заполнения');
+    }
+    
+    if (!formData.email.trim() || !formData.email.includes('@')) {
+      errors.push('Введите корректный email');
+    }
+    
+    if (errors.length > 0) {
+      setSubmitMessage(errors.join(', '));
       return false;
     }
     
@@ -47,24 +67,24 @@ const ContactForm: React.FC = () => {
     setSubmitMessage('');
 
     try {
-      const formattedData = formatLeadData(formData);
-      const result = await submitLeadWithJSONP(formattedData);
+      await leadsService.createLead({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        type: formData.type,
+        message: formData.message
+      });
 
-      if (result.success) {
-        setSubmitStatus('success');
-        setSubmitMessage(result.message || 'Спасибо! Ваша заявка успешно отправлена. Мы свяжемся с вами в ближайшее время.');
-        
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          type: 'Экскурсия',
-          message: ''
-        });
-      } else {
-        setSubmitStatus('error');
-        setSubmitMessage(result.error || 'Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз.');
-      }
+      setSubmitStatus('success');
+      setSubmitMessage('Спасибо! Ваша заявка успешно отправлена. Мы свяжемся с вами в ближайшее время.');
+      
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        type: 'Экскурсия',
+        message: ''
+      });
     } catch (error) {
       setSubmitStatus('error');
       setSubmitMessage('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз.');

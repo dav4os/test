@@ -16,7 +16,7 @@ function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { id: 'tours', label: 'Экскурсии', icon: MapPin },
+    { id: 'tours', label: 'Экскурсии', icon: MapPin, link: '/tours' },
     { id: 'rental', label: 'Аренда авто', icon: Car, link: '/rental' },
     { id: 'about', label: 'О нас', icon: Users, link: '/about' },
     { id: 'blog', label: 'Блог', icon: BookOpen, link: '/blog' },
@@ -24,7 +24,7 @@ function HomePage() {
 
   const navigationLinks = [
     { label: 'Главная', href: '/', active: true },
-    { label: 'Экскурсии', href: '#tours' },
+    { label: 'Экскурсии', href: '/tours' },
     { label: 'Аренда авто', href: '/rental' },
     { label: 'О нас', href: '/about' },
     { label: 'Блог', href: '/blog' },

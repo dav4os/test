@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
+import { useContactModal } from '../hooks/useContactModal';
+import ContactModal from './ContactModal';
 import { 
   ArrowLeft, 
   Calendar, 
@@ -24,6 +26,7 @@ import StructuredData from './StructuredData';
 function BlogArticle() {
   const { slug } = useParams<{ slug: string }>();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const { isModalOpen, openModal, closeModal } = useContactModal();
   
   if (!slug) {
     return <Navigate to="/blog" replace />;
@@ -40,7 +43,7 @@ function BlogArticle() {
 
   const navigationLinks = [
     { label: 'Главная', href: '/' },
-    { label: 'Экскурсии', href: '/#tours' },
+    { label: 'Экскурсии', href: '/tours' },
     { label: 'Аренда авто', href: '/rental' },
     { label: 'О нас', href: '/about' },
     { label: 'Блог', href: '/blog' },
@@ -497,6 +500,9 @@ function BlogArticle() {
           </div>
         </footer>
       </div>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 }

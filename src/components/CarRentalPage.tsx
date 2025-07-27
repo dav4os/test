@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useContactModal } from '../hooks/useContactModal';
+import ContactModal from './ContactModal';
 import { 
   ArrowLeft, 
   Compass, 
@@ -24,10 +26,11 @@ import { Helmet } from 'react-helmet-async';
 function CarRentalPage() {
   const [selectedPeriod, setSelectedPeriod] = useState('day');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isModalOpen, openModal, closeModal } = useContactModal();
 
   const navigationLinks = [
     { label: 'Главная', href: '/' },
-    { label: 'Экскурсии', href: '/#tours' },
+    { label: 'Экскурсии', href: '/tours' },
     { label: 'Аренда авто', href: '/rental', active: true },
     { label: 'О нас', href: '/about' },
     { label: 'Блог', href: '/blog' },
@@ -293,7 +296,10 @@ function CarRentalPage() {
           </p>
           
           {/* CTA Button */}
-          <button className="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-lg rounded-full shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1">
+          <button
+            onClick={openModal}
+            className="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-lg rounded-full shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
+          >
             <span className="flex items-center gap-2">
               <Calendar size={20} />
               Забронировать автомобиль
@@ -428,7 +434,10 @@ function CarRentalPage() {
                   </div>
 
                   {/* Action Button */}
-                  <button className="w-full mt-6 px-6 py-4 bg-gray-800 text-white font-bold rounded-xl hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
+                  <button
+                    onClick={openModal}
+                    className="w-full mt-6 px-6 py-4 bg-gray-800 text-white font-bold rounded-xl hover:bg-gray-700 transition-all duration-300 transform hover:scale-105 block text-center"
+                  >
                     Забронировать сейчас
                   </button>
                 </div>
@@ -536,8 +545,11 @@ function CarRentalPage() {
             </button>
           </div>
         </div>
-      </footer>
-    </div>
+              </footer>
+      </div>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 }
