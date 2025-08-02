@@ -33,6 +33,7 @@ function AboutPage() {
     { label: 'Главная', href: '/' },
     { label: 'Экскурсии', href: '/tours' },
     { label: 'Аренда авто', href: '/rental' },
+    { label: 'Аренда яхт', href: '/yacht-rental' },
     { label: 'О нас', href: '/about', active: true },
     { label: 'Блог', href: '/blog' },
     { label: 'Контакты', href: '#contacts' }

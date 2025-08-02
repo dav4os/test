@@ -5,25 +5,40 @@ const PerformanceOptimizer: React.FC = () => {
   const isOptimizingRef = useRef(false);
 
   useEffect(() => {
-    // Minimal optimizations with long delay to avoid blocking
-    const deferOptimizations = () => {
-      setTimeout(() => {
-        // Only minimal critical optimizations
-        optimizeCriticalResources();
-        
-        // Defer non-critical optimizations even further
-        setTimeout(() => {
-          if (!isOptimizingRef.current) {
-            isOptimizingRef.current = true;
-            preloadCriticalImages();
-            prefetchNextPages();
-            isOptimizingRef.current = false;
-          }
-        }, 3000);
-      }, 5000); // Very long delay to avoid blocking initial load
+    // Быстрые критические оптимизации
+    const runCriticalOptimizations = () => {
+      // Оптимизация критических изображений
+      optimizeCriticalImages();
+      
+      // Предзагрузка следующих страниц
+      prefetchNextPages();
+      
+      // Оптимизация шрифтов
+      optimizeFonts();
     };
 
-    deferOptimizations();
+    // Отложенные не-критические оптимизации
+    const runNonCriticalOptimizations = () => {
+      if (!isOptimizingRef.current) {
+        isOptimizingRef.current = true;
+        
+        // Предзагрузка изображений
+        preloadNonCriticalImages();
+        
+        // Оптимизация кэша
+        optimizeCache();
+        
+        isOptimizingRef.current = false;
+      }
+    };
+
+    // Запускаем критические оптимизации сразу
+    runCriticalOptimizations();
+    
+    // Отложенные оптимизации через 100мс
+    optimizationTimeoutRef.current = window.setTimeout(() => {
+      runNonCriticalOptimizations();
+    }, 100);
 
     // Cleanup function
     return () => {
@@ -34,46 +49,119 @@ const PerformanceOptimizer: React.FC = () => {
     };
   }, []);
 
-  // Minimal critical optimizations
-  const optimizeCriticalResources = () => {
-    // Only optimize above-fold images
+  // Оптимизация критических изображений
+  const optimizeCriticalImages = () => {
+    // Находим изображения выше fold и устанавливаем eager loading
     const aboveFoldImages = document.querySelectorAll('img[loading="lazy"]');
-    if (aboveFoldImages.length > 0) {
-      (aboveFoldImages[0] as HTMLImageElement).loading = 'eager';
-    }
+    aboveFoldImages.forEach((img, index) => {
+      if (index < 3) { // Только первые 3 изображения
+        (img as HTMLImageElement).loading = 'eager';
+        (img as HTMLImageElement).fetchPriority = 'high';
+      }
+    });
   };
 
-  // Minimal image preloading
+  // Предзагрузка критических изображений
   const preloadCriticalImages = () => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = '/pexels-pixabay-162031.webp';
-    document.head.appendChild(link);
+    const criticalImages = [
+      '/optimized/pexels-pixabay-162031.webp',
+      '/optimized/pexels-apasaric-2044434.webp',
+      '/optimized/pexels-bubi-2867769.webp'
+    ];
+
+    criticalImages.forEach(src => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = src;
+      document.head.appendChild(link);
+    });
   };
 
-  // Minimal page prefetching
+  // Предзагрузка не-критических изображений
+  const preloadNonCriticalImages = () => {
+    const nonCriticalImages = [
+      '/optimized/pexels-lina-12238221.webp',
+      '/optimized/pexels-avinashpatel-544542.webp',
+      '/optimized/transportnoe-sredstvo-v-dvizenii.webp'
+    ];
+
+    nonCriticalImages.forEach(src => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.as = 'image';
+      link.href = src;
+      document.head.appendChild(link);
+    });
+  };
+
+  // Предзагрузка следующих страниц
   const prefetchNextPages = () => {
     const currentPath = window.location.pathname;
-    let nextPage = '/';
+    let nextPages = ['/tours', '/about', '/blog'];
     
     if (currentPath === '/') {
-      nextPage = '/about';
+      nextPages = ['/tours', '/about'];
+    } else if (currentPath === '/tours') {
+      nextPages = ['/rental', '/about'];
     } else if (currentPath === '/about') {
-      nextPage = '/blog';
+      nextPages = ['/blog', '/rental'];
     } else if (currentPath === '/blog') {
-      nextPage = '/rental';
+      nextPages = ['/rental', '/'];
     } else if (currentPath === '/rental') {
-      nextPage = '/';
+      nextPages = ['/', '/tours'];
     }
 
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.href = nextPage;
-    document.head.appendChild(link);
+    nextPages.forEach(page => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = page;
+      document.head.appendChild(link);
+    });
   };
 
-  return null; // Temporarily disabled to prevent long tasks
+  // Оптимизация шрифтов
+  const optimizeFonts = () => {
+    // Предзагрузка критических шрифтов
+    const fontLinks = document.querySelectorAll('link[rel="preload"][as="font"]');
+    if (fontLinks.length === 0) {
+      // Добавляем preload для системных шрифтов
+      const systemFonts = [
+        'system-ui',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        'Segoe UI',
+        'Roboto'
+      ];
+      
+      // Устанавливаем font-display: swap для быстрой отрисовки
+      const style = document.createElement('style');
+      style.textContent = `
+        @font-face {
+          font-family: 'System Font';
+          font-display: swap;
+          src: local('${systemFonts.join("'), local('")}');
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  };
+
+  // Оптимизация кэша
+  const optimizeCache = () => {
+    // Очистка старых кэшированных ресурсов
+    if ('caches' in window) {
+      caches.keys().then(cacheNames => {
+        cacheNames.forEach(cacheName => {
+          if (cacheName.includes('vite') || cacheName.includes('static')) {
+            caches.delete(cacheName);
+          }
+        });
+      });
+    }
+  };
+
+  return null;
 };
 
 export default PerformanceOptimizer; 

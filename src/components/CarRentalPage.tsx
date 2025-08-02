@@ -32,6 +32,7 @@ function CarRentalPage() {
     { label: 'Главная', href: '/' },
     { label: 'Экскурсии', href: '/tours' },
     { label: 'Аренда авто', href: '/rental', active: true },
+    { label: 'Аренда яхт', href: '/yacht-rental' },
     { label: 'О нас', href: '/about' },
     { label: 'Блог', href: '/blog' },
     { label: 'Контакты', href: '#contacts' }
@@ -184,14 +185,14 @@ function CarRentalPage() {
               <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg">
                 <Compass size={20} className="text-white" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-white">Explore IT</h1>
-                <p className="text-amber-200 text-xs">Travel & Technology</p>
-              </div>
+                              <div>
+                  <h1 className="text-xl font-bold text-white">Explore IT</h1>
+                  <p className="text-amber-200 text-xs">Travel & Technology</p>
+                </div>
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8" role="navigation" aria-label="Основная навигация">
+            <nav className="hidden lg:flex items-center gap-6 whitespace-nowrap" role="navigation" aria-label="Основная навигация">
               {navigationLinks.map((link, index) => (
                 <div key={index}>
                   {link.href.startsWith('/') ? (
@@ -228,11 +229,11 @@ function CarRentalPage() {
               </Link>
 
               {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden flex items-center justify-center w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg text-white hover:bg-white/30 transition-all duration-300"
-                aria-label="Открыть меню"
-              >
+                              <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="lg:hidden flex items-center justify-center w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg text-white hover:bg-white/30 transition-all duration-300"
+                  aria-label="Открыть меню"
+                >
                 {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
@@ -240,28 +241,28 @@ function CarRentalPage() {
 
           {/* Mobile Navigation Menu */}
           {isMobileMenuOpen && (
-            <div className="lg:hidden mt-4 bg-black/40 backdrop-blur-md rounded-2xl p-6 border border-white/10">
+                          <div className="lg:hidden mt-4 bg-black/40 backdrop-blur-md rounded-2xl p-6 border border-white/10">
               <nav className="flex flex-col gap-4" role="navigation" aria-label="Мобильная навигация">
                 {navigationLinks.map((link, index) => (
                   <div key={index}>
                     {link.href.startsWith('/') ? (
-                      <Link
-                        to={link.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`block text-white/90 hover:text-amber-300 transition-colors duration-300 font-medium py-2 px-4 rounded-lg hover:bg-white/10 ${
-                          link.active ? 'text-amber-300 bg-white/10' : ''
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    ) : (
-                      <a
-                        href={link.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`block text-white/90 hover:text-amber-300 transition-colors duration-300 font-medium py-2 px-4 rounded-lg hover:bg-white/10 ${
-                          link.active ? 'text-amber-300 bg-white/10' : ''
-                        }`}
-                      >
+                                              <Link
+                          to={link.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`block text-white/90 hover:text-amber-300 transition-colors duration-300 font-medium py-2 px-4 rounded-lg hover:bg-white/10 ${
+                            link.active ? 'text-amber-300 bg-white/10' : ''
+                          }`}
+                        >
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`block text-white/90 hover:text-amber-300 transition-colors duration-300 font-medium py-2 px-4 rounded-lg hover:bg-white/10 ${
+                            link.active ? 'text-amber-300 bg-white/10' : ''
+                          }`}
+                        >
                         {link.label}
                       </a>
                     )}

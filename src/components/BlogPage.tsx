@@ -15,6 +15,7 @@ function BlogPage() {
     { label: 'Главная', href: '/' },
     { label: 'Экскурсии', href: '/tours' },
     { label: 'Аренда авто', href: '/rental' },
+    { label: 'Аренда яхт', href: '/yacht-rental' },
     { label: 'О нас', href: '/about' },
     { label: 'Блог', href: '/blog', active: true },
     { label: 'Контакты', href: '#contacts' }

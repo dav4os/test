@@ -101,7 +101,7 @@ export const handleImageError = (
 };
 
 // Предзагрузка критических изображений
-export const preloadCriticalImages = (urls: string[]): Promise<void[]> => {
+export const preloadCriticalImages = (urls: string[]): Promise<void> => {
   const promises = urls.map(url => {
     return new Promise<void>((resolve, reject) => {
       const img = new Image();
@@ -111,7 +111,13 @@ export const preloadCriticalImages = (urls: string[]): Promise<void[]> => {
     });
   });
 
-  return Promise.allSettled(promises) as Promise<void[]>;
+  return Promise.allSettled(promises).then(results => {
+    results.forEach(result => {
+      if (result.status === 'rejected') {
+        console.warn('Failed to preload image:', result.reason);
+      }
+    });
+  });
 };
 
 // Lazy loading с Intersection Observer
@@ -183,19 +189,19 @@ export const getWebPImagePath = (imagePath: string): string => {
  * Список изображений, для которых доступны WebP версии
  */
 export const WEBP_AVAILABLE_IMAGES = [
-  '/pexels-04iraq-1272398525-29098431.webp',
-  '/pexels-apasaric-2044434.webp',
-  '/pexels-avinashpatel-544542.webp',
-  '/pexels-bubi-2867769.webp',
-  '/pexels-lina-12238221.webp',
-  '/pexels-egeardaphotos-2148533277-30313376.webp',
-  '/pexels-pixabay-162031.webp',
-  '/photo_2025-07-12_18-52-35.webp',
-  '/photo_2025-07-12_19-02-57.webp',
-  '/photo_2025-07-12_19-16-09.webp',
-  '/photo_2025-07-12_19-16-06.webp',
-  '/photo_2025-07-12_19-16-14.webp',
-  '/transportnoe-sredstvo-v-dvizenii.webp'
+  '/optimized/pexels-04iraq-1272398525-29098431.webp',
+  '/optimized/pexels-apasaric-2044434.webp',
+  '/optimized/pexels-avinashpatel-544542.webp',
+  '/optimized/pexels-bubi-2867769.webp',
+  '/optimized/pexels-lina-12238221.webp',
+  '/optimized/pexels-egeardaphotos-2148533277-30313376.webp',
+  '/optimized/pexels-pixabay-162031.webp',
+  '/optimized/photo_2025-07-12_18-52-35.webp',
+  '/optimized/photo_2025-07-12_19-02-57.webp',
+  '/optimized/photo_2025-07-12_19-16-09.webp',
+  '/optimized/photo_2025-07-12_19-16-06.webp',
+  '/optimized/photo_2025-07-12_19-16-14.webp',
+  '/optimized/transportnoe-sredstvo-v-dvizenii.webp'
 ];
 
 /**
@@ -204,18 +210,48 @@ export const WEBP_AVAILABLE_IMAGES = [
  * @returns true, если WebP версия доступна
  */
 export const isWebPAvailable = (imagePath: string): boolean => {
+  // Сначала проверяем оптимизированные версии
+  const optimizedWebpPath = getOptimizedWebPImagePath(imagePath);
+  if (WEBP_AVAILABLE_IMAGES.includes(optimizedWebpPath)) {
+    return true;
+  }
+  
+  // Затем проверяем оригинальные версии
   const webpPath = getWebPImagePath(imagePath);
   return WEBP_AVAILABLE_IMAGES.includes(webpPath);
 };
 
 /**
- * Возвращает оптимальный путь к изображению (WebP если доступен, иначе оригинальный)
+ * Возвращает путь к оптимизированной WebP версии изображения
+ * @param imagePath - путь к изображению
+ * @returns путь к оптимизированной WebP версии
+ */
+export const getOptimizedWebPImagePath = (imagePath: string): string => {
+  // Если путь уже в папке optimized, возвращаем как есть
+  if (imagePath.includes('/optimized/')) {
+    return imagePath;
+  }
+  
+  // Извлекаем имя файла
+  const fileName = imagePath.split('/').pop() || '';
+  const nameWithoutExt = fileName.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+  
+  // Возвращаем путь к оптимизированной версии
+  return `/optimized/${nameWithoutExt}.webp`;
+};
+
+/**
+ * Возвращает оптимальный путь к изображению (оптимизированная WebP если доступна, иначе оригинальный)
  * @param imagePath - путь к изображению
  * @returns оптимальный путь к изображению
  */
 export const getOptimalImagePath = (imagePath: string): string => {
+  // Сначала проверяем оптимизированную версию
+  const optimizedPath = getOptimizedWebPImagePath(imagePath);
   if (isWebPAvailable(imagePath)) {
-    return getWebPImagePath(imagePath);
+    return optimizedPath;
   }
+  
+  // Если оптимизированной версии нет, возвращаем оригинальный путь
   return imagePath;
 };

@@ -60,6 +60,7 @@ export default defineConfig({
           ui: ['lucide-react'],
           utils: ['react-helmet-async'],
           performance: ['src/utils/performance.ts', 'src/hooks/useOptimizedRender.ts'],
+          images: ['src/utils/imageUtils.ts', 'src/hooks/useImagePreloader.ts'],
         },
         // Optimize chunk naming
         chunkFileNames: 'assets/[name]-[hash].js',
@@ -73,9 +74,14 @@ export default defineConfig({
         drop_debugger: true,
         pure_funcs: ['console.log', 'console.info', 'console.debug'],
         passes: 2, // Multiple passes for better compression
+        dead_code: true,
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true,
       },
       mangle: {
         toplevel: true, // Mangle top-level names
+        safari10: true,
       },
     },
     // Optimize chunk size

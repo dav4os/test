@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
-import { generateBreadcrumbData } from '../utils/seo';
 
 interface BreadcrumbItem {
   name: string;
@@ -14,42 +13,47 @@ interface BreadcrumbsProps {
 }
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
-  const breadcrumbData = generateBreadcrumbData(items);
+  // Structured Data для breadcrumbs
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": `https://exploreitdubai.ru${item.url}`
+    }))
+  };
 
   return (
     <>
-      {/* Structured Data for Breadcrumbs */}
+      {/* Structured Data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbData, null, 2)
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       
-      {/* Visual Breadcrumbs */}
-      <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4" aria-label="Хлебные крошки">
+      {/* Breadcrumbs UI */}
+      <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6" aria-label="Breadcrumb">
         <Link 
           to="/" 
-          className="flex items-center hover:text-amber-600 transition-colors"
-          aria-label="Главная страница"
+          className="flex items-center hover:text-amber-500 transition-colors duration-200"
         >
-          <Home size={16} />
+          <Home size={16} className="mr-1" />
+          Главная
         </Link>
         
         {items.map((item, index) => (
-          <React.Fragment key={index}>
+          <React.Fragment key={item.url}>
             <ChevronRight size={16} className="text-gray-400" />
             {item.current ? (
-              <span 
-                className="text-amber-600 font-medium"
-                aria-current="page"
-              >
+              <span className="text-gray-800 font-medium" aria-current="page">
                 {item.name}
               </span>
             ) : (
-              <Link
+              <Link 
                 to={item.url}
-                className="hover:text-amber-600 transition-colors"
+                className="hover:text-amber-500 transition-colors duration-200"
               >
                 {item.name}
               </Link>

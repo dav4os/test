@@ -9,6 +9,7 @@ const BlogPage = lazy(() => import('./components/BlogPage'));
 const BlogArticle = lazy(() => import('./components/BlogArticle'));
 const AboutPage = lazy(() => import('./components/AboutPage'));
 const CarRentalPage = lazy(() => import('./components/CarRentalPage'));
+const YachtRentalPage = lazy(() => import('./components/YachtRentalPage'));
 const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
 
 // Development tools - only load in development
@@ -18,6 +19,9 @@ const SEOAnalyzer = lazy(() => import('./components/SEOAnalyzer'));
 const SupabaseTest = lazy(() => import('./components/SupabaseTest'));
 const EnvDebug = lazy(() => import('./components/EnvDebug'));
 const SupabaseDiagnostic = lazy(() => import('./components/SupabaseDiagnostic'));
+const SupabaseConnectionDebug = lazy(() => import('./components/SupabaseConnectionDebug'));
+const ToursTest = lazy(() => import('./components/ToursTest'));
+const CategoriesDebug = lazy(() => import('./components/CategoriesDebug'));
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
 const BlogManager = lazy(() => import('./components/BlogManager'));
 const BlogPageSupabase = lazy(() => import('./components/BlogPageSupabase'));
@@ -44,6 +48,7 @@ function App() {
           <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/rental" element={<CarRentalPage />} />
+          <Route path="/yacht-rental" element={<YachtRentalPage />} />
           
           {/* Development routes */}
           {import.meta.env.DEV && (
@@ -54,6 +59,9 @@ function App() {
               <Route path="/blog-selector" element={<BlogSelector />} />
               <Route path="/env-debug" element={<EnvDebug />} />
               <Route path="/supabase-diagnostic" element={<SupabaseDiagnostic />} />
+              <Route path="/supabase-connection-debug" element={<SupabaseConnectionDebug />} />
+              <Route path="/tours-test" element={<ToursTest />} />
+              <Route path="/categories-debug" element={<CategoriesDebug />} />
               <Route path="/supabase-test" element={<SupabaseTest />} />
               <Route path="/test-seo" element={<TestSEO />} />
               <Route path="/performance-monitor" element={<PerformanceMonitor />} />

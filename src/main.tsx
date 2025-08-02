@@ -27,7 +27,10 @@ const initApp = () => {
     console.log(metric);
   });
   
-  setupPerformanceObserver();
+  // Настройка мониторинга производительности
+  if (import.meta.env.PROD) {
+    setupPerformanceObserver();
+  }
 };
 
 // Start app with performance optimizations
